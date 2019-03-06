@@ -246,7 +246,7 @@ class Product extends MagentoProduct
     public function importData()
     {
         $this->_validatedRows = null;
-        
+
         if (Import::BEHAVIOR_REPLACE == $this->getBehavior()) {
             $this->_replaceFlag = true;
             $this->replaceProducts();
@@ -332,11 +332,11 @@ class Product extends MagentoProduct
                     $this->getErrorAggregator()->addRowToSkip($rowNum);
                     continue;
                 }
-                
+
                 if (!$this->validateRow($rowData, $rowNum)) {
                     continue;
                 }
-                
+
                 $rowScope = $this->getRowScope($rowData);
 
                 $rowSku = $rowData[self::COL_SKU];
@@ -393,7 +393,7 @@ class Product extends MagentoProduct
                     $this->categoriesCache[$rowSku][$id] = true;
                 }
                 unset($rowData['rowNum']);
-                
+
                 if (!array_key_exists($rowSku, $this->websitesCache)) {
                     $this->websitesCache[$rowSku] = [];
                 }
@@ -461,7 +461,7 @@ class Product extends MagentoProduct
                             if ($column == self::COL_MEDIA_IMAGE) {
                                 $rowData[$column][] = $uploadedFile;
                             }
-                            $mediaGallery[$rowSku][] = [
+                            $mediaGallery[0][$rowSku][] = [
                                 'attribute_id' => $this->getMediaGalleryAttributeId(),
                                 'label' => isset($rowLabels[$column][$position]) ? $rowLabels[$column][$position] : '',
                                 'position' => $position + 1,
@@ -582,7 +582,7 @@ class Product extends MagentoProduct
                     $entityRowsUp
                 );
             }
-            
+
             $this->importLogger->debug('Imported: ' . count($entityRowsIn) . ' rows');
             $this->importLogger->debug('Updated: ' . count($entityRowsUp) . ' rows');
 
@@ -604,7 +604,7 @@ class Product extends MagentoProduct
         }
         return $this;
     }
-    
+
     /**
      * Import images via initialized source type
      *
@@ -764,7 +764,7 @@ class Product extends MagentoProduct
         }
         return $rowData;
     }
-    
+
     /**
      * Parse attributes names and values string to array.
      *
